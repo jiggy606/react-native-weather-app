@@ -1,7 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import * as Location from 'expo-location'
+import { useEffect, useState } from 'react';
 
 export default function App() {
+
+  const [errorMessage, setErrorMessage] = useState(null)
+
+  useEffect(() => {
+    load()
+  }, [])
+
+  async function load() {
+    try {
+      let { status } = await Location.requestPermissionsAsync()
+
+      if (status! 'granted') {
+        setErrorMessage('Access to location required to run')
+        return
+      }
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
